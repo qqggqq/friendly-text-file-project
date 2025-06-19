@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +14,7 @@ import HostDashboard from "./pages/HostDashboard";
 import EventDetails from "./pages/EventDetails";
 import NotFound from "./pages/NotFound";
 import UserPage from "./pages/UserPage";
+import AttendeeRegistration from "./pages/AttendeeRegistration";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +56,7 @@ const AppRoutes = () => {
           <HostDashboard />
         </ProtectedRoute>
       } />
+      <Route path="/attendee-registration" element={<AttendeeRegistration />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
