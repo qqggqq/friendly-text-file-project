@@ -60,6 +60,26 @@ const mockAllEvents = [
     attendees: 200,
     host: "Dr. Ahmed",
     budget: 12000
+  },
+  {
+    id: 4,
+    name: "Sports Tournament",
+    category: "Sports",
+    date: "2024-02-01",
+    status: "approved",
+    attendees: 300,
+    host: "Coach Wilson",
+    budget: 15000
+  },
+  {
+    id: 5,
+    name: "Art Exhibition",
+    category: "Cultural",
+    date: "2024-02-10",
+    status: "rejected",
+    attendees: 80,
+    host: "Artist Group",
+    budget: 3000
   }
 ];
 
@@ -186,6 +206,7 @@ const UserPage = () => {
                     <option value="technology">Technology</option>
                     <option value="cultural">Cultural</option>
                     <option value="academic">Academic</option>
+                    <option value="sports">Sports</option>
                   </select>
                   <Button variant="outline" className="border-red-200 text-red-600 hover:bg-red-50">
                     <Filter className="w-4 h-4 mr-2" />
@@ -281,6 +302,14 @@ const UserPage = () => {
                   </TableBody>
                 </Table>
               </div>
+
+              {filteredEvents.length === 0 && (
+                <div className="text-center py-12">
+                  <Calendar className="w-16 h-16 text-red-300 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-600 mb-2">No Events Found</h3>
+                  <p className="text-gray-500">Try adjusting your search or filter criteria.</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -301,7 +330,7 @@ const UserPage = () => {
                   My Events Dashboard
                 </CardTitle>
                 <CardDescription className="text-red-100 text-lg">
-                  AURAK Event Management Platform
+                  AURAK Event Management Platform - Welcome {user?.first_name}!
                 </CardDescription>
               </div>
               <div className="flex gap-3">
