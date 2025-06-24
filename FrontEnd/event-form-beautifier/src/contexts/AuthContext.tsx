@@ -49,6 +49,14 @@ const dummyUsers: { [key: string]: User } = {
     department: 'Administration',
     email: 'admin@aurak.ac.ae',
     phone: '+971507654321'
+  },
+  'treasurer@aurak.ac.ae': {
+    id: 3,
+    first_name: 'Treasurer',
+    last_name: 'User',
+    department: 'Finance',
+    email: 'treasurer@aurak.ac.ae',
+    phone: '+971509876543'
   }
 };
 

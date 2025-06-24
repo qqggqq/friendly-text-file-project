@@ -70,8 +70,9 @@ const UserPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('all');
   
-  // Determine if user is admin based on email
+  // Determine user role based on email
   const isAdmin = user?.email === 'admin@aurak.ac.ae';
+  const isTreasurer = user?.email === 'treasurer@aurak.ac.ae';
 
   const handleCreateEvent = () => {
     navigate('/events');
@@ -137,7 +138,8 @@ const UserPage = () => {
     }
   };
 
-  if (isAdmin) {
+  // Admin/Treasurer View
+  if (isAdmin || isTreasurer) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-red-100 py-8 px-4">
         <div className="max-w-7xl mx-auto">
@@ -147,10 +149,10 @@ const UserPage = () => {
                 <div>
                   <CardTitle className="text-3xl font-bold flex items-center">
                     <Users className="w-8 h-8 mr-3" />
-                    Admin Dashboard
+                    {isTreasurer ? 'Treasurer Dashboard' : 'Admin Dashboard'}
                   </CardTitle>
                   <CardDescription className="text-red-100 text-lg">
-                    AURAK Event Management Platform - Administrative Panel
+                    AURAK Event Management Platform - {isTreasurer ? 'Budget Management' : 'Administrative Panel'}
                   </CardDescription>
                 </div>
                 <Button
@@ -234,36 +236,44 @@ const UserPage = () => {
                             >
                               <Eye className="w-4 h-4" />
                             </Button>
-                            <Button
-                              size="sm"
-                              onClick={() => handleApproveEvent(event.id, event.name)}
-                              className="bg-green-600 hover:bg-green-700 text-white"
-                            >
-                              <Check className="w-4 h-4" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleRejectEvent(event.id, event.name)}
-                            >
-                              <X className="w-4 h-4" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleApproveBudget(event.id, event.name)}
-                              className="border-green-200 text-green-600 hover:bg-green-50"
-                            >
-                              Budget ✓
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleDenyBudget(event.id, event.name)}
-                              className="border-red-200 text-red-600 hover:bg-red-50"
-                            >
-                              Budget ✗
-                            </Button>
+                            {isAdmin && (
+                              <>
+                                <Button
+                                  size="sm"
+                                  onClick={() => handleApproveEvent(event.id, event.name)}
+                                  className="bg-green-600 hover:bg-green-700 text-white"
+                                >
+                                  <Check className="w-4 h-4" />
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="destructive"
+                                  onClick={() => handleRejectEvent(event.id, event.name)}
+                                >
+                                  <X className="w-4 h-4" />
+                                </Button>
+                              </>
+                            )}
+                            {(isTreasurer || isAdmin) && (
+                              <>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => handleApproveBudget(event.id, event.name)}
+                                  className="border-green-200 text-green-600 hover:bg-green-50"
+                                >
+                                  Budget ✓
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => handleDenyBudget(event.id, event.name)}
+                                  className="border-red-200 text-red-600 hover:bg-red-50"
+                                >
+                                  Budget ✗
+                                </Button>
+                              </>
+                            )}
                           </div>
                         </TableCell>
                       </TableRow>
